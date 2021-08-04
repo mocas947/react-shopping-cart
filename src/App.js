@@ -1,4 +1,5 @@
-// samo da ovo smestim u feature-1 branč
+// Otvoren je branč pod imenom feature-1
+// vidi donji levi ugao
 
 
 function App() {
