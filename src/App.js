@@ -1,5 +1,5 @@
 import React from "react";
-import data from "./data.json";
+// import data from "./data.json"; now comes from server
 import Products from "./components/Products";
 import Filter from "./components/Filter";
 import Cart from "./components/Cart";
@@ -10,12 +10,12 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: data.products,
+      // products: data.products,
       cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
-      size: "",
-      sort: "",
+      // size: "", now comes from Redux Store
+      // sort: "",
     };
   }
   createOrder = (order) => {
@@ -48,43 +48,7 @@ addToCart = (product) => {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 };
 
-  sortProducts = (event) => {
-    // impl
-    const sort = event.target.value;
-    console.log(event.target.value);
-    this.setState((state) => ({
-      sort: sort,
-      products: this.state.products
-        .slice()
-        .sort((a, b) => 
-          sort === "lowest" 
-            ? a.price > b.price
-              ? 1 
-              : -1
-            : sort === "highest" 
-            ? a.price < b.price
-              ? 1 
-              : -1
-            : a._id  >  b._id
-              ? 1
-              : -1
-        ),
-    }));
-  };
 
-  filterProducts = (event) => {
-    console.log(event.target.value);
-    if (event.target.value === "") {
-      this.setState({ size: event.target.value, product: data.products });
-    } else {
-      this.setState({
-        size: event.target.value,
-        products: data.products.filter(
-          (product) => product.availableSizes.indexOf(event.target.value) >= 0
-        ),
-      });
-    }  
-  };
   render() {
     return (
       <Provider store={store}>
@@ -95,14 +59,10 @@ addToCart = (product) => {
           <main>
             <div className="content">
               <div className="main">
-                <Filter count={this.state.products.length}
-                size={this.state.size}  // prop za filter komponentu
-                sort={this.state.sort}  // prop za filter komponentu
-                filterProducts={this.fiterProducts}
-                sortProducts={this.sortProducts}
+                <Filter 
+
                 ></Filter>
                 <Products 
-                  products={this.state.products} 
                   addToCart={this.addToCart}
                 ></Products>
               </div>
