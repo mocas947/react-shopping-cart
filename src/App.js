@@ -7,49 +7,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      // products: data.products,
-      cartItems: localStorage.getItem("cartItems")
-      ? JSON.parse(localStorage.getItem("cartItems"))
-      : [],
-      // size: "", now comes from Redux Store
-      // sort: "",
-    };
-  }
-  createOrder = (order) => {
-    alert("Need to save order for " + order.name);
-  }
-  removeFromCart = (product) => {
-    const cartItems = this.state.cartItems.slice();
-    this.setState({
-      cartItems: cartItems.filter((x) => x._id !== product._id),
-    });
-  localStorage.setItem(
-    "cartItems", 
-    JSON.stringify(cartItems.filter((x) => x._id !== product._id)));
-};  
-
-// klon kopija
-addToCart = (product) => {
-  const cartItems = this.state.cartItems.slice();
-  let alreadyInCart = false;
-  cartItems.forEach((item) => {
-    if (item._id === product._id) {
-      item.count++;
-      alreadyInCart = true;
-    }
-  });
-  if (!alreadyInCart) {
-    cartItems.push({...product, count: 1});
-  }
-  this.setState({cartItems});
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-};
-
-
-  render() {
+   render() {
     return (
       <Provider store={store}>
         <div className="grid-container">
@@ -62,16 +20,10 @@ addToCart = (product) => {
                 <Filter 
 
                 ></Filter>
-                <Products 
-                  addToCart={this.addToCart}
-                ></Products>
+                <Products></Products>
               </div>
               <div className="sidebar">
-                  <Cart 
-                  cartItems={this.state.cartItems}
-                  removeFromCart={this.removeFromCart}
-                  createOrder={this.createOrder}
-                />           ;
+                  <Cart /> 
               </div>
             </div>
           </main>
