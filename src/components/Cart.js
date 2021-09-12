@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import { removeFromCart } from "../actions/cartActions";
-//import { createOrder, clearOrder } from "../actions/orderActions";
+import { createOrder, clearOrder } from "../actions/orderActions";
 
 class Cart extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class Cart extends Component {
       email: this.state.email,
       address: this.state.address,
       cartItems: this.props.cartItems,
+      // a - akomulator, c - current item
       total: this.props.cartItems.reduce((a, c) => a + c.price * c.count, 0),
     };
     this.props.createOrder(order);
@@ -39,10 +40,10 @@ class Cart extends Component {
     return (
       <div>
         {cartItems.length === 0 ? (
-          <div className="cart cart-header">Cart is empty</div>
+          <div className="cart cart-header">Korpa je prazna</div>
         ) : (
           <div className="cart cart-header">
-            You have {cartItems.length} in the cart{" "}
+            Imate {cartItems.length} artikal/a u korpi{" "}
           </div>
         )}
 
@@ -50,14 +51,14 @@ class Cart extends Component {
           <Modal isOpen={true} onRequestClose={this.closeModal}>
             <Zoom>
               <button className="close-modal" onClick={this.closeModal}>
-                x
-              </button>
+                x  
+              </button> 
               <div className="order-details">
-                <h3 className="success-message">Your order has been placed.</h3>
-                <h2>Order {order._id}</h2>
+                <h3 className="success-message">Vaša narudžbina je prihvaćena.</h3>
+                <h2>Narudžbenica {order._id}</h2>
                 <ul>
                   <li>
-                    <div>Name:</div>
+                    <div>Naručilac:</div>
                     <div>{order.name}</div>
                   </li>
                   <li>
@@ -65,19 +66,19 @@ class Cart extends Component {
                     <div>{order.email}</div>
                   </li>
                   <li>
-                    <div>Address:</div>
+                    <div>Adresa:</div>
                     <div>{order.address}</div>
                   </li>
                   <li>
-                    <div>Date:</div>
+                    <div>Datum:</div>
                     <div>{order.createdAt}</div>
                   </li>
                   <li>
-                    <div>Total:</div>
+                    <div>Ukupno:</div>
                     <div>{formatCurrency(order.total)}</div>
                   </li>
                   <li>
-                    <div>Cart Items:</div>
+                    <div>Artikli:</div>
                     <div>
                       {order.cartItems.map((x) => (
                         <div>
@@ -108,7 +109,7 @@ class Cart extends Component {
                           className="button"
                           onClick={() => this.props.removeFromCart(item)}
                         >
-                          Remove
+                          Izvadi iz korpe
                         </button>
                       </div>
                     </div>
@@ -122,7 +123,7 @@ class Cart extends Component {
               <div className="cart">
                 <div className="total">
                   <div>
-                    Total:{" "}
+                    Ukupno:{" "}
                     {formatCurrency(
                       cartItems.reduce((a, c) => a + c.price * c.count, 0)
                     )}
@@ -133,7 +134,7 @@ class Cart extends Component {
                     }}
                     className="button primary"
                   >
-                    Proceed
+                    Nastavi
                   </button>
                 </div>
               </div>
@@ -152,7 +153,7 @@ class Cart extends Component {
                           ></input>
                         </li>
                         <li>
-                          <label>Name</label>
+                          <label>Naziv</label>
                           <input
                             name="name"
                             type="text"
@@ -161,7 +162,7 @@ class Cart extends Component {
                           ></input>
                         </li>
                         <li>
-                          <label>Address</label>
+                          <label>Adresa</label>
                           <input
                             name="address"
                             type="text"
@@ -171,7 +172,7 @@ class Cart extends Component {
                         </li>
                         <li>
                           <button className="button primary" type="submit">
-                            Checkout
+                            Zaključi
                           </button>
                         </li>
                       </ul>
@@ -189,9 +190,9 @@ class Cart extends Component {
 
 export default connect(
   (state) => ({
-    // order: state.order.order,
+    order: state.order.order,
     cartItems: state.cart.cartItems,
   }),
-  // { removeFromCart, createOrder, clearOrder }
-  { removeFromCart }
+  { removeFromCart, createOrder, clearOrder },
+  
 )(Cart);
