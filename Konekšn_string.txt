@@ -1,4 +1,0 @@
-mongodb+srv://shopping-cart-user:E0hAaOiJlc7f9AuE@cluster0.81xwx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-
-
-
