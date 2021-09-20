@@ -50,7 +50,7 @@ class Products extends Component {
                                                 onClick={() => this.props.addToCart(product)}
                                                 className="button primary" 
                                             >
-                                                Dodaj u korpu
+                                                Stavi u torbu
                                             </button>
                                         </div>
                                     </div> 
@@ -88,7 +88,7 @@ class Products extends Component {
                                             this.props.addToCart(product);
                                             this.closeModal()
                                         }}>
-                                            Dodaj u korpu
+                                            Stavi u torbu
                                         </button>
                                     </div>
                                 </div>
