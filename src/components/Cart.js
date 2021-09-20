@@ -40,10 +40,10 @@ class Cart extends Component {
     return (
       <div>
         {cartItems.length === 0 ? (
-          <div className="cart cart-header">Korpa je prazna</div>
+          <div className="cart cart-header">Torba je prazna</div>
         ) : (
           <div className="cart cart-header">
-            Imate {cartItems.length} artikal/a u korpi{" "}
+            Imate {cartItems.length} artikal/a u torbi{" "}
           </div>
         )}
 
@@ -109,7 +109,7 @@ class Cart extends Component {
                           className="button"
                           onClick={() => this.props.removeFromCart(item)}
                         >
-                          Izvadi iz korpe
+                          Izvadi iz torbe
                         </button>
                       </div>
                     </div>
